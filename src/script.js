@@ -144,6 +144,65 @@ const skyTexture = new THREE.TextureLoader().load('sky.jpg')
 // skyTexture.repeat.set(3, 3); 
 
 
+
+
+
+
+
+
+const loader = new OBJLoader();
+
+// Load the model
+loader.load(
+  // The URL of the model file
+  'hot_air_balloon.obj',
+  // The onLoad function, which is called when the model is loaded
+  (obj) => {
+
+    // Get the root object of the model
+    const model = obj;
+    model.rotation.x = - Math.PI / 2;
+    model.position.y=-500
+    model.scale.set(0.09,0.09,0.09)
+    
+    // Create a texture from an image file
+    const texture = new THREE.TextureLoader().load('11809_Hot_air_balloon_Hot_air_balloon_diff.jpg');
+
+    // Create a material with the texture
+    const material = new THREE.MeshBasicMaterial({ map: texture });
+
+    // Traverse the object and apply the material to all meshes
+    model.traverse((child) => {
+      if (child instanceof THREE.Mesh) {
+        child.material = material;
+      }
+    });
+
+    // Add the model to the scene
+    scene.add(model);
+  },
+
+  // The onProgress function, which is called while the model is loading
+  (xhr) => {
+    console.log(`${(xhr.loaded / xhr.total * 100)}% loaded`);
+  },
+
+  // The onError function, which is called if there is an error loading the model
+  (error) => {
+    console.error(`Error loading model: ${error}`);
+  }
+);
+
+
+
+
+
+
+
+
+
+
+
 const skyGeometry = new THREE.SphereGeometry(1000, 60, 40);
 const skyMaterial = new THREE.MeshBasicMaterial({ map: skyTexture, side: THREE.BackSide });
 const skySphere = new THREE.Mesh(skyGeometry, skyMaterial);
