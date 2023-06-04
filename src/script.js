@@ -92,6 +92,7 @@ loader.load(
   // The URL of the model file
   'hot_air_balloon.obj',
   // The onLoad function, which is called when the model is loaded
+  
   (obj) => {
 
     // Get the root object of the model
