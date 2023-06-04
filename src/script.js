@@ -82,8 +82,26 @@ const skyTexture = new THREE.TextureLoader().load('sky.jpg')
 
 
 const balloonTexture = textureLoader.load('11809_Hot_air_balloon_Hot_air_balloon_diff.jpg');;
-const basket = textureLoader.load('basket.jpg');
-const ropes = textureLoader.load('burner.jpg');
+const basketTexture = textureLoader.load('basket.jpg');
+const ropesTexture = textureLoader.load('burner.jpg');
+
+// Create a material with the texture
+const balloonMaterial = new THREE.MeshStandardMaterial({
+    map: balloonTexture,
+    side: THREE.DoubleSide, // Make sure the texture is visible from both sides
+  });
+
+  // Create a material for the basket with the basket texture
+  const basketMaterial = new THREE.MeshStandardMaterial({
+    map: basketTexture,
+    side: THREE.DoubleSide,
+  });
+
+  // Create a material for the ropes with the ropes texture
+  const ropesMaterial = new THREE.MeshStandardMaterial({
+    map: ropesTexture,
+    side: THREE.DoubleSide,
+  });
 
 const loader = new OBJLoader();
 
@@ -92,7 +110,7 @@ loader.load(
   // The URL of the model file
   'hot_air_balloon.obj',
   // The onLoad function, which is called when the model is loaded
-  
+
   (obj) => {
 
     // Get the root object of the model
@@ -100,6 +118,35 @@ loader.load(
     model.rotation.x = - Math.PI / 2;
     model.position.y=-500
     model.scale.set(0.09,0.09,0.09)
+
+    // set the movement speed of the cube
+const moveSpeed = 10;
+
+// add an event listener for the keydown event
+document.addEventListener('keydown', function(event) {
+  switch (event.key) {
+    case 'ArrowLeft': // left arrow
+      model.position.x -= moveSpeed;
+      break;
+    case 'ArrowUp': // up arrow
+      model.position.z -= moveSpeed;
+      break;
+    case 'ArrowRight': // right arrow
+      model.position.x += moveSpeed;
+      break;
+    case 'ArrowDown': // down arrow
+      model.position.z += moveSpeed;
+      break;
+      case 'w': // down arrow
+      model.position.y += moveSpeed;
+      break;
+      case 's': // down arrow
+      model.position.y -= moveSpeed;
+      break;
+  }
+});
+
+   
     
     // Create a texture from an image file
 
@@ -107,8 +154,9 @@ loader.load(
     // Create a material with the texture
     const material = new THREE.MeshBasicMaterial({ map: balloonTexture });
 
-    // Traverse the object and apply the material to all meshes
+    //Traverse the object and apply the material to all meshes
     model.traverse((child) => {
+        console.log(child.name)
       if (child instanceof THREE.Mesh) {
         child.material = material;
       }
@@ -128,6 +176,17 @@ loader.load(
     console.error(`Error loading model: ${error}`);
   }
 );
+
+
+
+document.addEventListener('keydown', function(event) {
+    console.log('Key pressed: ' + event.key);
+  });
+  
+  // add an event listener for the keyup event
+  document.addEventListener('keyup', function(event) {
+    console.log('Key released: ' + event.key);
+  });
 
 
 
