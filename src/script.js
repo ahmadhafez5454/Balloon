@@ -5,80 +5,11 @@ import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 
 
 
-// // Create a WebGL renderer
-// const renderer = new THREE.WebGLRenderer();
-// //canvas
-// const canvas = document.querySelector('canvas.webgl')
-
-
-// // Create a scene and camera
-// const scene = new THREE.Scene();
-// const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-// camera.position.z = 3;
-
-// // Controls
-// const controls = new OrbitControls(camera, canvas)
-//  controls.enableDamping = true
-
-
-
-
-// //Create ground
-// const grassTexture = new THREE.TextureLoader().load('grass.jpg') 
-// grassTexture.wrapS = THREE.RepeatWrapping;                               
-// grassTexture.wrapT = THREE.RepeatWrapping; 
-// grassTexture.repeat.set(5, 5); 
-
-// const groundGeometry = new THREE.PlaneGeometry(30,30, 1, 1);
-// const groundMaterial = new THREE.MeshBasicMaterial({ map: grassTexture });
-// const ground = new THREE.Mesh(groundGeometry, groundMaterial);
-// scene.add(ground);
-
-
-
-
-
-// // Create a texture
-// const textureLoader = new THREE.TextureLoader();
-// const texture = textureLoader.load('door.jpg');
-// texture.wrapS = THREE.RepeatWrapping;
-// texture.wrapT = THREE.RepeatWrapping;
-// texture.repeat.set(8, 8);
-// texture.encoding = THREE.sRGBEncoding;
-
-// // Create a sky dome
-// const geometry = new THREE.SphereGeometry(1, 32, 32);
-// const material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.BackSide });
-// const skyDome = new THREE.Mesh(geometry, material);
-// scene.add(skyDome);
-
-// // Add a cube to the scene
-// const cubeGeometry = new THREE.BoxGeometry();
-// const cubeMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff });
-// const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-// scene.add(cube);
-
 // // Add some lights to the scene
 // const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 // const pointLight = new THREE.PointLight(0xffffff, 1);
 // pointLight.position.set(5, 5, 5);
 // scene.add(ambientLight, pointLight);
-
-
-
-
-// // Render the scene
-// renderer.setSize(window.innerWidth, window.innerHeight);
-// document.body.appendChild(renderer.domElement);
-
-// function animate() {
-    
-//     renderer.render(scene, camera);
-
-//   requestAnimationFrame(animate);
-  
-// }
-// animate();
 
 
 
@@ -102,7 +33,8 @@ const mesh = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ color: 0xff0
 scene.add(mesh)
 
 //Create ground
-const grassTexture = new THREE.TextureLoader().load('grass.jpg') 
+const textureLoader = new THREE.TextureLoader();
+const grassTexture = textureLoader.load('grass.jpg') 
 grassTexture.wrapS = THREE.RepeatWrapping;                               
 grassTexture.wrapT = THREE.RepeatWrapping; 
 grassTexture.repeat.set(5, 5); 
@@ -149,6 +81,9 @@ const skyTexture = new THREE.TextureLoader().load('sky.jpg')
 
 
 
+const balloonTexture = textureLoader.load('11809_Hot_air_balloon_Hot_air_balloon_diff.jpg');;
+const basket = textureLoader.load('basket.jpg');
+const ropes = textureLoader.load('burner.jpg');
 
 const loader = new OBJLoader();
 
@@ -166,10 +101,10 @@ loader.load(
     model.scale.set(0.09,0.09,0.09)
     
     // Create a texture from an image file
-    const texture = new THREE.TextureLoader().load('11809_Hot_air_balloon_Hot_air_balloon_diff.jpg');
+
 
     // Create a material with the texture
-    const material = new THREE.MeshBasicMaterial({ map: texture });
+    const material = new THREE.MeshBasicMaterial({ map: balloonTexture });
 
     // Traverse the object and apply the material to all meshes
     model.traverse((child) => {
