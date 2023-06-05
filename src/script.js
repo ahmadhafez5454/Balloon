@@ -79,27 +79,60 @@ const skyTexture = new THREE.TextureLoader().load('sky.jpg')
 
 
 
+// Create a texture from an image file
+const balloonTexture = textureLoader.load('balloon.jpg');
+const basketTexture = textureLoader.load('basket.jpg');
+const burnerTexture = textureLoader.load('burner.jpg');
+const balloonTopTexture = textureLoader.load('11809_Hot_air_balloon_Baloon_top_diff.jpg');
+const basketSpecTexture = textureLoader.load('11809_Hot_air_balloon_Basket_spec.jpg');
+const basketSupportTexture = textureLoader.load('11809_Hot_air_balloon_Basket_support_diff.jpg');
+const burnerSpecTexture = textureLoader.load('11809_Hot_air_balloon_Burner_spec.jpg');
+const floorTexture = textureLoader.load('11809_Hot_air_balloon_Floor_diff.jpg');
+const basketSupportSpecTexture = textureLoader.load('11809_Hot_air_balloon_Basket_support_spec.jpg');
+const reflTexture = textureLoader.load('11809_Hot_air_balloon_refl.jpg');
 
 
+ // Create a materials for the balloon with its textures
+ const balloonMaterial = new THREE.MeshBasicMaterial({
+  map: balloonTexture,
+});
 
+const basketMaterial = new THREE.MeshBasicMaterial({
+  map: basketTexture,
+});
 
-// Create a material with the texture
-const balloonMaterial = new THREE.MeshStandardMaterial({
-    map: balloonTexture,
-    side: THREE.DoubleSide, // Make sure the texture is visible from both sides
-  });
+const burnerMaterial = new THREE.MeshBasicMaterial({
+  map: burnerTexture,
+});
 
-  // Create a material for the basket with the basket texture
-  const basketMaterial = new THREE.MeshStandardMaterial({
-    map: basketTexture,
-    side: THREE.DoubleSide,
-  });
+const balloonTopMaterial = new THREE.MeshBasicMaterial({
+  map: balloonTopTexture,
+});
 
-  // Create a material for the ropes with the ropes texture
-  const ropesMaterial = new THREE.MeshStandardMaterial({
-    map: ropesTexture,
-    side: THREE.DoubleSide,
-  });
+const basketSpecMaterial = new THREE.MeshBasicMaterial({
+  map: basketSpecTexture,
+});
+
+const basketSupportMaterial = new THREE.MeshBasicMaterial({
+  map: basketSupportTexture,
+});
+
+const burnerSpecMaterial = new THREE.MeshBasicMaterial({
+  map: burnerSpecTexture,
+});
+
+const floorMaterial = new THREE.MeshBasicMaterial({
+  map: floorTexture,
+});
+
+const basketSupportSpecMaterial = new THREE.MeshBasicMaterial({
+  map: basketSupportSpecTexture,
+});
+
+const reflMaterial = new THREE.MeshBasicMaterial({
+  map: reflTexture,
+});
+
 
 const loader = new OBJLoader();
 
@@ -118,7 +151,7 @@ loader.load(
     model.scale.set(0.09,0.09,0.09)
 
     // set the movement speed of the cube
-const moveSpeed = 10;
+const moveSpeed = 5;
 
 // add an event listener for the keydown event
 document.addEventListener('keydown', function(event) {
@@ -146,59 +179,10 @@ document.addEventListener('keydown', function(event) {
 
    
     
-    // Create a texture from an image file
-    const balloonTexture = textureLoader.load('balloon.jpg');
-    const basketTexture = textureLoader.load('basket.jpg');
-    const burnerTexture = textureLoader.load('burner.jpg');
-    const balloonTopTexture = textureLoader.load('11809_Hot_air_balloon_Baloon_top_diff.jpg');
-    const basketSpecTexture = textureLoader.load('11809_Hot_air_balloon_Basket_spec.jpg');
-    const basketSupportTexture = textureLoader.load('11809_Hot_air_balloon_Basket_support_diff.jpg');
-    const burnerSpecTexture = textureLoader.load('11809_Hot_air_balloon_Burner_spec.jpg');
-    const floorTexture = textureLoader.load('11809_Hot_air_balloon_Floor_diff.jpg');
-    const basketSupportSpecTexture = textureLoader.load('11809_Hot_air_balloon_Basket_support_spec.jpg');
-    const reflTexture = textureLoader.load('11809_Hot_air_balloon_refl.jpg');
+    
     
 
-       // Create a materials for the balloon with its textures
-       const balloonMaterial = new THREE.MeshBasicMaterial({
-        map: balloonTexture,
-      });
-  
-      const basketMaterial = new THREE.MeshBasicMaterial({
-        map: basketTexture,
-      });
-  
-      const burnerMaterial = new THREE.MeshBasicMaterial({
-        map: burnerTexture,
-      });
-
-      const balloonTopMaterial = new THREE.MeshBasicMaterial({
-        map: balloonTopTexture,
-      });
-
-      const basketSpecMaterial = new THREE.MeshBasicMaterial({
-        map: basketSpecTexture,
-      });
-
-      const basketSupportMaterial = new THREE.MeshBasicMaterial({
-        map: basketSupportTexture,
-      });
-
-      const burnerSpecMaterial = new THREE.MeshBasicMaterial({
-        map: burnerSpecTexture,
-      });
-
-      const floorMaterial = new THREE.MeshBasicMaterial({
-        map: floorTexture,
-      });
-
-      const basketSupportSpecMaterial = new THREE.MeshBasicMaterial({
-        map: basketSupportSpecTexture,
-      });
-
-      const reflMaterial = new THREE.MeshBasicMaterial({
-        map: reflTexture,
-      });
+      
 
   // Assign the materials to the appropriate parts of the model
   model.traverse((child) => {
@@ -292,12 +276,6 @@ document.addEventListener('keydown', function(event) {
   document.addEventListener('keyup', function(event) {
     console.log('Key released: ' + event.key);
   });
-
-
-
-
-
-
 
 
 
