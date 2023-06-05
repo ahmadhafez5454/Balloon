@@ -81,9 +81,7 @@ const skyTexture = new THREE.TextureLoader().load('sky.jpg')
 
 
 
-const balloonTexture = textureLoader.load('11809_Hot_air_balloon_Hot_air_balloon_diff.jpg');;
-const basket = textureLoader.load('basket.jpg');
-const ropes = textureLoader.load('burner.jpg');
+
 
 const loader = new OBJLoader();
 
@@ -102,17 +100,124 @@ loader.load(
     model.scale.set(0.09,0.09,0.09)
     
     // Create a texture from an image file
+    const balloonTexture = textureLoader.load('balloon.jpg');
+    const basketTexture = textureLoader.load('basket.jpg');
+    const burnerTexture = textureLoader.load('burner.jpg');
+    const balloonTopTexture = textureLoader.load('11809_Hot_air_balloon_Baloon_top_diff.jpg');
+    const basketSpecTexture = textureLoader.load('11809_Hot_air_balloon_Basket_spec.jpg');
+    const basketSupportTexture = textureLoader.load('11809_Hot_air_balloon_Basket_support_diff.jpg');
+    const burnerSpecTexture = textureLoader.load('11809_Hot_air_balloon_Burner_spec.jpg');
+    const floorTexture = textureLoader.load('11809_Hot_air_balloon_Floor_diff.jpg');
+    const basketSupportSpecTexture = textureLoader.load('11809_Hot_air_balloon_Basket_support_spec.jpg');
+    const reflTexture = textureLoader.load('11809_Hot_air_balloon_refl.jpg');
+    
+
+       // Create a materials for the balloon with its textures
+       const balloonMaterial = new THREE.MeshBasicMaterial({
+        map: balloonTexture,
+      });
+  
+      const basketMaterial = new THREE.MeshBasicMaterial({
+        map: basketTexture,
+      });
+  
+      const burnerMaterial = new THREE.MeshBasicMaterial({
+        map: burnerTexture,
+      });
+
+      const balloonTopMaterial = new THREE.MeshBasicMaterial({
+        map: balloonTopTexture,
+      });
+
+      const basketSpecMaterial = new THREE.MeshBasicMaterial({
+        map: basketSpecTexture,
+      });
+
+      const basketSupportMaterial = new THREE.MeshBasicMaterial({
+        map: basketSupportTexture,
+      });
+
+      const burnerSpecMaterial = new THREE.MeshBasicMaterial({
+        map: burnerSpecTexture,
+      });
+
+      const floorMaterial = new THREE.MeshBasicMaterial({
+        map: floorTexture,
+      });
+
+      const basketSupportSpecMaterial = new THREE.MeshBasicMaterial({
+        map: basketSupportSpecTexture,
+      });
+
+      const reflMaterial = new THREE.MeshBasicMaterial({
+        map: reflTexture,
+      });
+
+  // Assign the materials to the appropriate parts of the model
+  model.traverse((child) => {
+    console.log(child.name)
+  if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Balloon') {
+    child.material = balloonMaterial;
+  }
+});
+model.traverse((child) => {
+  console.log(child.name)
+if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Basket') {
+  child.material = basketMaterial;
+}
+});
+model.traverse((child) => {
+  console.log(child.name)
+if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Support_Base') {
+  child.material = basketSupportMaterial;
+}
+});
+model.traverse((child) => {
+  console.log(child.name)
+if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Floor') {
+  child.material = floorMaterial;
+}
+});
+model.traverse((child) => {
+  console.log(child.name)
+if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Fasteners') {
+  child.material = burnerMaterial;
+}
+});
+model.traverse((child) => {
+  console.log(child.name)
+if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Burner') {
+  child.material = burnerMaterial;
+}
+});
+model.traverse((child) => {
+  console.log(child.name)
+if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Burners_det') {
+  child.material = burnerSpecMaterial;
+}
+});
+model.traverse((child) => {
+  console.log(child.name)
+if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Top') {
+  child.material = balloonTopMaterial;
+}
+});
+model.traverse((child) => {
+  console.log(child.name)
+if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Burners_det_L') {
+  child.material = burnerSpecMaterial;
+}
+});
+model.traverse((child) => {
+  console.log(child.name)
+if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Burner001') {
+  child.material = burnerSpecMaterial;
+}
+});
 
 
-    // Create a material with the texture
-    const material = new THREE.MeshBasicMaterial({ map: balloonTexture });
 
-    // Traverse the object and apply the material to all meshes
-    model.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
-        child.material = material;
-      }
-    });
+    
 
     // Add the model to the scene
     scene.add(model);
@@ -122,6 +227,7 @@ loader.load(
   (xhr) => {
     console.log(`${(xhr.loaded / xhr.total * 100)}% loaded`);
   },
+  
 
   // The onError function, which is called if there is an error loading the model
   (error) => {
