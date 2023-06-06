@@ -36,21 +36,6 @@ grassTexture.wrapS = THREE.RepeatWrapping;
 grassTexture.wrapT = THREE.RepeatWrapping; 
 grassTexture.repeat.set(5, 5); 
 
-// const groundGeometry = new THREE.PlaneGeometry(900,900, 1, 1);
-// const groundMaterial = new THREE.MeshBasicMaterial({ map: grassTexture, side: THREE.DoubleSide });
-// const ground = new THREE.Mesh(groundGeometry, groundMaterial);
-// ground.rotation.set(Math.PI/2, 0, 0);
-// ground.position.y=-500
-// scene.add(ground);
-
-/// Create a ground plane
-// const groundGeometry = new THREE.PlaneGeometry(1800, 1800);
-// const groundMaterial = new THREE.MeshBasicMaterial({ map: grassTexture,side: THREE.DoubleSide });
-// const ground = new THREE.Mesh(groundGeometry, groundMaterial);
-// ground.rotation.x = - Math.PI / 2;
-// ground.position.y=-500
-// scene.add(ground);
-
 const groundGeometry = new THREE.CircleGeometry( 865, 32 ); 
 const groundMaterial = new THREE.MeshBasicMaterial( { map: grassTexture,side: THREE.DoubleSide } ); 
 const circle = new THREE.Mesh( groundGeometry, groundMaterial );
@@ -59,18 +44,18 @@ circle.position.y=-500
  scene.add( circle );
 
 
-// // Create a sky dome
-// const skyTexture = new THREE.TextureLoader().load('sky.jpg') 
-// const skygeometry = new THREE.SphereGeometry(600, 32, 32);
-// const skymaterial = new THREE.MeshBasicMaterial({ map: skyTexture, side: THREE.BackSide });
-// const skyDome = new THREE.Mesh(skygeometry, skymaterial);
-// scene.add(skyDome);
+
 
 // Create a sky sphere
 const skyTexture = new THREE.TextureLoader().load('sky.jpg') 
-// skyTexture.wrapS = THREE.RepeatWrapping;                               
-// skyTexture.wrapT = THREE.RepeatWrapping; 
-// skyTexture.repeat.set(3, 3); 
+const skyGeometry = new THREE.SphereGeometry(1000, 60, 40);
+const skyMaterial = new THREE.MeshBasicMaterial({ map: skyTexture, side: THREE.BackSide });
+const skySphere = new THREE.Mesh(skyGeometry, skyMaterial);
+skySphere.material.map.wrapS = THREE.RepeatWrapping;
+skySphere.material.map.wrapT = THREE.RepeatWrapping;
+skySphere.material.map.repeat.set(1, -1);
+scene.add(skySphere);
+
 
 
 
@@ -196,61 +181,51 @@ document.addEventListener('keydown', function(event) {
 
   // Assign the materials to the appropriate parts of the model
   model.traverse((child) => {
-    console.log(child.name)
   if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Balloon') {
     child.material = balloonMaterial;
   }
 });
 model.traverse((child) => {
-  console.log(child.name)
 if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Basket') {
   child.material = basketMaterial;
 }
 });
 model.traverse((child) => {
-  console.log(child.name)
 if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Support_Base') {
   child.material = basketSupportMaterial;
 }
 });
 model.traverse((child) => {
-  console.log(child.name)
 if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Floor') {
   child.material = floorMaterial;
 }
 });
 model.traverse((child) => {
-  console.log(child.name)
 if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Fasteners') {
   child.material = burnerMaterial;
 }
 });
 model.traverse((child) => {
-  console.log(child.name)
 if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Burner') {
   child.material = burnerMaterial;
 }
 });
 model.traverse((child) => {
-  console.log(child.name)
 if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Burners_det') {
   child.material = burnerSpecMaterial;
 }
 });
 model.traverse((child) => {
-  console.log(child.name)
 if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Top') {
   child.material = balloonTopMaterial;
 }
 });
 model.traverse((child) => {
-  console.log(child.name)
 if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Burners_det_L') {
   child.material = burnerSpecMaterial;
 }
 });
 model.traverse((child) => {
-  console.log(child.name)
 if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Burner001') {
   child.material = burnerSpecMaterial;
 }
@@ -291,13 +266,6 @@ document.addEventListener('keydown', function(event) {
 
 
 
-const skyGeometry = new THREE.SphereGeometry(1000, 60, 40);
-const skyMaterial = new THREE.MeshBasicMaterial({ map: skyTexture, side: THREE.BackSide });
-const skySphere = new THREE.Mesh(skyGeometry, skyMaterial);
-skySphere.material.map.wrapS = THREE.RepeatWrapping;
-skySphere.material.map.wrapT = THREE.RepeatWrapping;
-skySphere.material.map.repeat.set(1, -1);
-scene.add(skySphere);
 
 
 /**
@@ -352,7 +320,7 @@ controls.enableDamping = true
  * Renderer
  */
 const renderer = new THREE.WebGLRenderer({
-    canvas: canvas
+  canvas: canvas
 })
 renderer.setSize(sizes.width, sizes.height)
 
