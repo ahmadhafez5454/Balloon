@@ -65,7 +65,7 @@ scene.add(skySphere);
 
 
 // Create a texture from an image file
-const balloonTexture = textureLoader.load('balloon.jpg');
+const balloonTexture = textureLoader.load('balloon_b.jpg');
 const basketTexture = textureLoader.load('basket.jpg');
 const burnerTexture = textureLoader.load('burner.jpg');
 const balloonTopTexture = textureLoader.load('11809_Hot_air_balloon_Baloon_top_diff.jpg');
