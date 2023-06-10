@@ -1,15 +1,12 @@
 import './style.css'
+
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 
 
 
-// // Add some lights to the scene
-// const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-// const pointLight = new THREE.PointLight(0xffffff, 1);
-// pointLight.position.set(5, 5, 5);
-// scene.add(ambientLight, pointLight);
+
 
 
 
@@ -22,15 +19,15 @@ const canvas = document.querySelector('canvas.webgl')
 
 // Scene
 const scene = new THREE.Scene()
- 
 
-/**
- * Object
- */
-const geometry = new THREE.BoxGeometry(1, 1, 1)
 
-const mesh = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ color: 0xff0000 }))
-scene.add(mesh)
+// Add some lights to the scene
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+const pointLight = new THREE.PointLight(0xffffff, 1);
+pointLight.position.set(5, 5, 5);
+scene.add(ambientLight, pointLight);
+
+
 
 //Create ground
 const textureLoader = new THREE.TextureLoader();
@@ -133,31 +130,44 @@ loader.load(
     const model = obj;
     model.rotation.x = - Math.PI / 2;
     model.position.y=-500
-    model.scale.set(0.09,0.09,0.09)
+    model.scale.set(0.02,0.02,0.02)
 
     // set the movement speed of the cube
-const moveSpeed = 5;
+const moveSpeed = 2;
 
 // add an event listener for the keydown event
 document.addEventListener('keydown', function(event) {
   switch (event.key) {
     case 'ArrowLeft': // left arrow
       model.position.x -= moveSpeed;
+      controls.target.set(model.position.x,model.position.y,model.position.z)
+      
       break;
     case 'ArrowUp': // up arrow
       model.position.z -= moveSpeed;
+    controls.target.set(model.position.x,model.position.y,model.position.z)
+      
       break;
     case 'ArrowRight': // right arrow
       model.position.x += moveSpeed;
+      controls.target.set(model.position.x,model.position.y,model.position.z)
+      
       break;
     case 'ArrowDown': // down arrow
       model.position.z += moveSpeed;
+      controls.target.set(model.position.x,model.position.y,model.position.z)
+      
+      
       break;
       case 'w': // down arrow
       model.position.y += moveSpeed;
+      controls.target.set(model.position.x,model.position.y,model.position.z)
+     
       break;
       case 's': // down arrow
       model.position.y -= moveSpeed;
+      controls.target.set(model.position.x,model.position.y,model.position.z)
+     
       break;
   }
 });
@@ -293,11 +303,17 @@ window.addEventListener('dblclick',()=>{
  */
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 10000)
-camera.position.z = 3
+camera.position.z = 120
+camera.position.y= - 420
+
+
+
 scene.add(camera)
 
 // Controls
 const controls = new OrbitControls(camera, canvas)
+controls.maxPolarAngle=Math.PI /1.5
+controls.target.set(0,-500,0)
 controls.enableDamping = true
 
 /**
@@ -313,15 +329,12 @@ renderer.setSize(sizes.width, sizes.height)
  * Animate
  */
 const clock = new THREE.Clock()
-
 const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
 
     // Update controls
     controls.update()
-
-    mesh.rotation.y+=0.01
 
     // Render
     renderer.render(scene, camera)
