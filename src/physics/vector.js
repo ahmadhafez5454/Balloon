@@ -1,11 +1,11 @@
 class Vector3 {
-    constructor(x, y, z) {
+    constructor(x=0, y=0, z=0) {
       this.x = x;
       this.y = y;
       this.z = z;
     }
     //create a vector
-    createVector(x, y, z) {
+    create(x, y, z) {
         return new Vector3(x, y, z);
     }
 
