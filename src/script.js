@@ -1,9 +1,10 @@
 import './style.css'
 
+import { Vector3 } from "three";
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
-
+import Balloon from './physics/balloon';
 
 
 
@@ -118,6 +119,9 @@ const reflMaterial = new THREE.MeshBasicMaterial({
 
 const loader = new OBJLoader();
 
+// Create a new instance of the Balloon class
+const balloonPhysics = new Balloon(new THREE.Vector3(0, -500, 0));
+
 // Load the model
 loader.load(
   // The URL of the model file
@@ -130,7 +134,7 @@ loader.load(
     const model = obj;
     model.rotation.x = - Math.PI / 2;
     model.position.y=-500
-    model.scale.set(0.02,0.02,0.02)
+    model.scale.set(0.02,0.02,0.02) 
 
     // set the movement speed of the cube
 const moveSpeed = 2;
@@ -231,6 +235,18 @@ if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Burner0
 }
 });
 
+function animate() {
+  requestAnimationFrame(animate);
+
+  // Update the balloon physics and position
+  balloonPhysics.update(0.001);
+  console.log(balloonPhysics.netForceT);
+  model.position.copy(balloonPhysics.getPosition());
+  renderer.render(scene, camera);
+}
+
+animate();
+
 
 
     
@@ -262,10 +278,7 @@ document.addEventListener('keydown', function(event) {
     console.log('Key released: ' + event.key);
   });
 
-
-
-
-
+  
 
 
 /**
