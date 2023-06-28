@@ -1,7 +1,7 @@
 import { Vector3 } from "three";
 
 class Balloon {
-  constructor(position, basketMass = 2, ballooMass = 1, balloonV = 10,temperature=25) {
+  constructor(position, basketMass = 150, ballooMass = 90, balloonV = 4000,temperature=25) {
     this.position = new Vector3(position.x, position.y, position.z);
     this.ballooMass = ballooMass;
     this.basketMass = basketMass; // kg
@@ -42,7 +42,7 @@ class Balloon {
     let Rspecific = 287.058; //specific gas constant for dry air
     let Tkelvin = this.temperature + 273.15;
     let P = this.p;
-    let rho = P / (Rspecific * Tkelvin); // Path: ./formulas/rho.png
+    let rho = P / (Rspecific * Tkelvin); 
     console.log('rho',rho)
     this.rhoB=rho;
     //return rho;
@@ -70,7 +70,7 @@ class Balloon {
 
   }
   airResistence() {
-    const v = this.velocity.length();
+    const v = this.velocity.y;
     this.air = new Vector3(
       0,
       (-1 / 2) * this.rhoA * this.k * this.balloonSizeVertical * v * v,
@@ -90,22 +90,24 @@ class Balloon {
   windForceZ(v) {
     this.windZ = new Vector3(
     0,
-      0,
+    0,
       (1 / 2) * this.rhoA * this.k * this.balloonSizeHorizontal * v * v
     );
     return this.windZ;
   }
 
 
+ 
 
+   
   netForce() {
     const weight = this.weightForce();
     const lift = this.liftForce();
     const air = this.airResistence();
     this.netForceT = this.netForceT.add(lift)
     this.netForceT = this.netForceT.add(weight)
-    //this.netForceT = this.netForceT.add(air)
-    //this.netForceT = this.netForceT.add(this.windForceX(25))
+    this.netForceT = this.netForceT.add(air)
+    this.netForceT = this.netForceT.add(this.windForceZ(5))
     return this.netForceT;
   }
 
@@ -123,7 +125,8 @@ class Balloon {
 
   update(dt) {
     // update balloon
-    this.temperature+=0.1
+    this.temperature=120
+    this.netForceT=new Vector3(0,0,0);
     console.log('temp',this.temperature)
      this.netForceT = this.netForce();
     if (this.netForceT.y > 0) {

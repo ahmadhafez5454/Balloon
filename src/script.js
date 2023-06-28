@@ -245,6 +245,7 @@ function animate() {
   // Update the balloon physics and position
   balloonPhysics.update(0.001);
   console.log('Net Force =',balloonPhysics.netForceT);
+  console.log('air',balloonPhysics.airResistence());
   model.position.copy(balloonPhysics.getPosition());
   renderer.render(scene, camera);
 }
