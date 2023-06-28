@@ -1,7 +1,7 @@
 import { Vector3 } from "three";
 
 class Balloon {
-  constructor(position, basketMass = 10, ballooMass = 15, balloonV = 10) {
+  constructor(position, basketMass = 2, ballooMass = 1, balloonV = 10,temperature=25) {
     this.position = new Vector3(position.x, position.y, position.z);
     this.ballooMass = ballooMass;
     this.basketMass = basketMass; // kg
@@ -20,8 +20,10 @@ class Balloon {
     this.balloonSizeHorizontal =
       Math.PI * this.balloonRadius * this.balloonRadius + this.basketSize;
     this.k = 0.47;
-    this.rhoA = 1.2041;
-    this.rhoB = 1.0;
+    this.rhoA = 1.225;
+    this.rhoB = 1.225;
+    this.temperature=temperature;
+    this.p=101323;
   }
 
   setPosition(position) {
@@ -34,6 +36,18 @@ class Balloon {
     return this.position;
   }
 
+
+
+   air_rho() {
+    let Rspecific = 287.058; //specific gas constant for dry air
+    let Tkelvin = this.temperature + 273.15;
+    let P = this.p;
+    let rho = P / (Rspecific * Tkelvin); // Path: ./formulas/rho.png
+    console.log('rho',rho)
+    this.rhoB=rho;
+    //return rho;
+}
+
   weightForce() {
     this.weight = new Vector3(
       0,
@@ -44,12 +58,16 @@ class Balloon {
   }
 
   liftForce() {
+    
     this.lift = new Vector3(
       0,
-      (this.rhoB - this.rhoA) * this.balloonV * this.gravity,
+      (this.rhoA - this.rhoB) * this.balloonV * this.gravity,
       0
     );
+    this.air_rho();
+    console.log('lift = ',this.lift)
     return this.lift;
+
   }
   airResistence() {
     const v = this.velocity.length();
@@ -86,8 +104,8 @@ class Balloon {
     const air = this.airResistence();
     this.netForceT = this.netForceT.add(lift)
     this.netForceT = this.netForceT.add(weight)
-    this.netForceT = this.netForceT.add(air)
-    this.netForceT = this.netForceT.add(this.windForceX(25))
+    //this.netForceT = this.netForceT.add(air)
+    //this.netForceT = this.netForceT.add(this.windForceX(25))
     return this.netForceT;
   }
 
@@ -105,12 +123,13 @@ class Balloon {
 
   update(dt) {
     // update balloon
-    this.rhoB = this.rhoB + 0.1;
+    this.temperature+=0.1
+    console.log('temp',this.temperature)
      this.netForceT = this.netForce();
-    //if (this.netForceT.y > 0) {
+    if (this.netForceT.y > 0) {
       this.updateVelocity(dt);
       this.updatePosition(dt);
-    //}
+    }
   }
 
   
