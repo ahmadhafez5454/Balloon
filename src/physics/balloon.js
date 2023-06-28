@@ -1,7 +1,12 @@
 import { Vector3 } from "three";
 
 class Balloon {
-  constructor(position, basketMass = 10, ballooMass = 15, balloonV = 10) {
+  constructor(
+    position,
+    basketMass = 10,
+    ballooMass = 15,
+    balloonV = 10
+    ){
     this.position = new Vector3(position.x, position.y, position.z);
     this.ballooMass = ballooMass;
     this.basketMass = basketMass; // kg
