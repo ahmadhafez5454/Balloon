@@ -5,7 +5,8 @@ class Balloon {
     position,
     basketMass = 10,
     ballooMass = 15,
-    balloonV = 10
+    balloonV = 10,
+    temperature=25,
     ){
     this.position = new Vector3(position.x, position.y, position.z);
     this.ballooMass = ballooMass;
