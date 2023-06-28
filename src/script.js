@@ -63,16 +63,16 @@ scene.add(skySphere);
 
 
 // Create a texture from an image file
-const balloonTexture = textureLoader.load('balloon_b.jpg');
-const basketTexture = textureLoader.load('basket.jpg');
-const burnerTexture = textureLoader.load('burner.jpg');
-const balloonTopTexture = textureLoader.load('11809_Hot_air_balloon_Baloon_top_diff.jpg');
-const basketSpecTexture = textureLoader.load('11809_Hot_air_balloon_Basket_spec.jpg');
-const basketSupportTexture = textureLoader.load('11809_Hot_air_balloon_Basket_support_diff.jpg');
-const burnerSpecTexture = textureLoader.load('11809_Hot_air_balloon_Burner_spec.jpg');
-const floorTexture = textureLoader.load('11809_Hot_air_balloon_Floor_diff.jpg');
-const basketSupportSpecTexture = textureLoader.load('11809_Hot_air_balloon_Basket_support_spec.jpg');
-const reflTexture = textureLoader.load('11809_Hot_air_balloon_refl.jpg');
+const balloonTexture = textureLoader.load('balloon_model/balloon_b.jpg');
+const basketTexture = textureLoader.load('balloon_model/basket.jpg');
+const burnerTexture = textureLoader.load('balloon_model/burner.jpg');
+const balloonTopTexture = textureLoader.load('balloon_model/11809_Hot_air_balloon_Baloon_top_diff.jpg');
+const basketSpecTexture = textureLoader.load('balloon_model/11809_Hot_air_balloon_Basket_spec.jpg');
+const basketSupportTexture = textureLoader.load('balloon_model/11809_Hot_air_balloon_Basket_support_diff.jpg');
+const burnerSpecTexture = textureLoader.load('balloon_model/11809_Hot_air_balloon_Burner_spec.jpg');
+const floorTexture = textureLoader.load('balloon_model/11809_Hot_air_balloon_Floor_diff.jpg');
+const basketSupportSpecTexture = textureLoader.load('balloon_model/11809_Hot_air_balloon_Basket_support_spec.jpg');
+const reflTexture = textureLoader.load('balloon_model/11809_Hot_air_balloon_refl.jpg');
 
 
  // Create a materials for the balloon with its textures
@@ -125,7 +125,7 @@ const balloonPhysics = new Balloon(new THREE.Vector3(0, -500, 0));
 // Load the model
 loader.load(
   // The URL of the model file
-  'hot_air_balloon.obj',
+  'balloon_model/hot_air_balloon.obj',
   // The onLoad function, which is called when the model is loaded
 
   (obj) => {
@@ -234,6 +234,10 @@ if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Burner0
   child.material = burnerSpecMaterial;
 }
 });
+
+
+
+
 
 function animate() {
   requestAnimationFrame(animate);
