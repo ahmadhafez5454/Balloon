@@ -134,7 +134,7 @@ loader.load(
     const model = obj;
     model.rotation.x = - Math.PI / 2;
     model.position.y=-500
-    model.scale.set(0.02,0.02,0.02) 
+    model.scale.set(0.01,0.01,0.01) 
 
     // set the movement speed of the cube
 const moveSpeed = 2;
@@ -240,7 +240,7 @@ function animate() {
 
   // Update the balloon physics and position
   balloonPhysics.update(0.001);
-  console.log(balloonPhysics.netForceT);
+  console.log('Net Force =',balloonPhysics.netForceT);
   model.position.copy(balloonPhysics.getPosition());
   renderer.render(scene, camera);
 }

@@ -60,21 +60,34 @@ class Balloon {
     );
     return this.air;
   }
-  windForce() {
-    const v = this.velocity.length();
-    this.wind = new Vector3(
+  windForceX(v) {
+    this.windX = new Vector3(
+    (1 / 2) * this.rhoA * this.k * this.balloonSizeHorizontal * v * v,
       0,
-      (-1 / 2) * this.rhoA * this.k * this.balloonSizeHorizontal * v * v,
       0
     );
-    return this.wind;
+    return this.windX;
   }
+ 
+  windForceZ(v) {
+    this.windZ = new Vector3(
+    0,
+      0,
+      (1 / 2) * this.rhoA * this.k * this.balloonSizeHorizontal * v * v
+    );
+    return this.windZ;
+  }
+
+
 
   netForce() {
     const weight = this.weightForce();
     const lift = this.liftForce();
-    //const air = this.airResistence();
-    this.netForceT = weight.add(lift);
+    const air = this.airResistence();
+    this.netForceT = this.netForceT.add(lift)
+    this.netForceT = this.netForceT.add(weight)
+    this.netForceT = this.netForceT.add(air)
+    this.netForceT = this.netForceT.add(this.windForceX(25))
     return this.netForceT;
   }
 
@@ -94,10 +107,10 @@ class Balloon {
     // update balloon
     this.rhoB = this.rhoB + 0.1;
      this.netForceT = this.netForce();
-    if (this.netForceT.y > 0) {
+    //if (this.netForceT.y > 0) {
       this.updateVelocity(dt);
       this.updatePosition(dt);
-    }
+    //}
   }
 
   
