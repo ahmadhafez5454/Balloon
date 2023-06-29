@@ -1,5 +1,6 @@
 import { Vector3 } from "three";
 
+
 class Balloon {
   constructor(position, basketMass = 150, ballooMass = 90, balloonV = 4000,temperature=80) {
     this.position = new Vector3(position.x, position.y, position.z);
@@ -26,6 +27,7 @@ class Balloon {
     this.p=101323;
     this.vx=0;
     this.vz=0;
+    this.dt=0.01;
   }
 
   setPosition(position) {
@@ -51,6 +53,7 @@ class Balloon {
 }
 
   weightForce() {
+    
     this.weight = new Vector3(
       0,
       -1 * (this.basketMass + this.ballooMass) * this.gravity,
@@ -173,27 +176,27 @@ class Balloon {
     return this.netForceT;
   }
 
-  updateVelocity(dt) {
+  updateVelocity() {
     // update velocity based on net force and elapsed time
     this.netForceT = this.netForce();
     const acceleration = this.netForceT.divideScalar(this.ballooMass + this.basketMass);
-    this.velocity.add(acceleration.multiplyScalar(dt));
+    this.velocity.add(acceleration.multiplyScalar(this.dt));
   }
 
-  updatePosition(dt) {
+  updatePosition() {
     // update position based on velocity and elapsed time
-    this.position=this.position.add(this.velocity.clone().multiplyScalar(dt));
+    this.position=this.position.add(this.velocity.clone().multiplyScalar(this.dt));
   }
 
-  update(dt) {
+  update() {
     // update balloon
     //this.temperature=80
     this.netForceT=new Vector3(0,0,0);
     console.log('temp',this.temperature)
      this.netForceT = this.netForce();
     //if (this.netForceT.y > 0) {
-      this.updateVelocity(dt);
-      this.updatePosition(dt);
+      this.updateVelocity(this.dt);
+      this.updatePosition(this.dt);
     //}
   }
 

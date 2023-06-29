@@ -5,6 +5,12 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import Balloon from './physics/balloon';
+import * as dat from 'dat.gui'
+
+/*
+*debug ui
+*/
+const gui=new dat.GUI()
 
 
 
@@ -43,6 +49,7 @@ const circle = new THREE.Mesh( groundGeometry, groundMaterial );
 circle.rotation.x = - Math.PI / 2;
 circle.position.y=-500
  scene.add( circle );
+
 
 
 
@@ -122,6 +129,11 @@ const loader = new OBJLoader();
 // Create a new instance of the Balloon class
 const balloonPhysics = new Balloon(new THREE.Vector3(0, -500, 0));
 
+gui.add(balloonPhysics,'basketMass',50,1000,5)
+gui.add(balloonPhysics,'balloonV',2000,20000,5)
+gui.add(balloonPhysics,'temperature',0,200,1)
+
+
 // Load the model
 loader.load(
   // The URL of the model file
@@ -142,38 +154,6 @@ const moveSpeed = 2;
 // add an event listener for the keydown event
 document.addEventListener('keydown', function(event) {
   switch (event.key) {
-    case 'ArrowLeft': // left arrow
-      model.position.x -= moveSpeed;
-      controls.target.set(model.position.x,model.position.y,model.position.z)
-      
-      break;
-    case 'ArrowUp': // up arrow
-      model.position.z -= moveSpeed;
-    controls.target.set(model.position.x,model.position.y,model.position.z)
-      
-      break;
-    case 'ArrowRight': // right arrow
-      model.position.x += moveSpeed;
-      controls.target.set(model.position.x,model.position.y,model.position.z)
-      
-      break;
-    case 'ArrowDown': // down arrow
-      model.position.z += moveSpeed;
-      controls.target.set(model.position.x,model.position.y,model.position.z)
-      
-      
-      break;
-      case 'w': // down arrow
-      model.position.y += moveSpeed;
-      controls.target.set(model.position.x,model.position.y,model.position.z)
-     
-      break;
-      case 's': // down arrow
-      model.position.y -= moveSpeed;
-      controls.target.set(model.position.x,model.position.y,model.position.z)
-     
-      break;
-
       case 't': // down arrow
       balloonPhysics.temperature+=1;
      
@@ -187,8 +167,6 @@ document.addEventListener('keydown', function(event) {
 });
 
    
-    
-    
     
 
       
@@ -248,16 +226,21 @@ if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Burner0
 
 
 
+gui.add(balloonPhysics,'dt',0.001,0.1,0.0001)
 
 function animate() {
   requestAnimationFrame(animate);
 
   // Update the balloon physics and position
-  balloonPhysics.update(0.001);
+  balloonPhysics.update(balloonPhysics.dt);
   console.log('Net Force =',balloonPhysics.netForceT);
   console.log('air',balloonPhysics.airResistence());
   model.position.copy(balloonPhysics.getPosition());
   renderer.render(scene, camera);
+  controls.target.set(model.position.x,model.position.y,model.position.z)
+  
+
+  controls.update
 }
 
 animate();
@@ -331,9 +314,8 @@ window.addEventListener('dblclick',()=>{
  */
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 10000)
-camera.position.z = 120
-camera.position.y= - 420
-
+camera.position.z = 60
+camera.position.y= - 460
 
 
 scene.add(camera)
@@ -343,6 +325,7 @@ const controls = new OrbitControls(camera, canvas)
 controls.maxPolarAngle=Math.PI /1.5
 controls.target.set(0,-500,0)
 controls.enableDamping = true
+
 
 /**
  * Renderer
