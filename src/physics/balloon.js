@@ -24,6 +24,8 @@ class Balloon {
     this.rhoB = 1.225;
     this.temperature=temperature;
     this.p=101323;
+    this.vx=0;
+    this.vz=0;
   }
 
   setPosition(position) {
@@ -79,6 +81,15 @@ class Balloon {
     return this.air;
   }
   windForceX(v) {
+    this.vx=v;
+    if(v<0){
+      this.windX = new Vector3(
+        (-1 / 2) * this.rhoA * this.k * this.balloonSizeHorizontal * v * v,
+          0,
+          0
+        );
+        return this.windX;
+    }
     this.windX = new Vector3(
     (1 / 2) * this.rhoA * this.k * this.balloonSizeHorizontal * v * v,
       0,
@@ -88,12 +99,60 @@ class Balloon {
   }
  
   windForceZ(v) {
+    this.vz=v;
+    if(v<0){
+      this.windZ = new Vector3(
+        0,
+        0,
+          (-1 / 2) * this.rhoA * this.k * this.balloonSizeHorizontal * v * v
+        );
+        return this.windZ;
+    }
     this.windZ = new Vector3(
-    0,
-    0,
-      (1 / 2) * this.rhoA * this.k * this.balloonSizeHorizontal * v * v
+      0,
+      0,
+        (1 / 2) * this.rhoA * this.k * this.balloonSizeHorizontal * v * v
+      );
+      return this.windZ;
+
+  }
+
+  airResistenceZ() {
+    const v = this.velocity.z;
+    if(this.vz<0){
+      this.air = new Vector3(
+      0,
+      0,
+      (1 / 2) * this.rhoA * this.k * this.balloonSizeVertical * v * v
     );
-    return this.windZ;
+    return this.air;}
+
+    this.air = new Vector3(
+      0,
+      0,
+      (-1 / 2) * this.rhoA * this.k * this.balloonSizeVertical * v * v
+    );
+    return this.air;
+
+  }
+
+  airResistenceX() {
+    const v = this.velocity.x;
+    if(this.vx<0){
+      this.air = new Vector3(
+        (1 / 2) * this.rhoA * this.k * this.balloonSizeVertical * v * v,
+        0,
+        0
+      );
+      return this.air;
+    }
+    this.air = new Vector3(
+      (-1 / 2) * this.rhoA * this.k * this.balloonSizeVertical * v * v,
+      0,
+      0
+    );
+    return this.air;
+
   }
 
 
@@ -107,7 +166,10 @@ class Balloon {
     this.netForceT = this.netForceT.add(lift)
     this.netForceT = this.netForceT.add(weight)
     this.netForceT = this.netForceT.add(air)
-    this.netForceT = this.netForceT.add(this.windForceZ(5))
+    this.netForceT = this.netForceT.add(this.windForceX(-80))
+    this.netForceT = this.netForceT.add(this.airResistenceX())
+    this.netForceT = this.netForceT.add(this.windForceZ(-60))
+    this.netForceT = this.netForceT.add(this.airResistenceZ())
     return this.netForceT;
   }
 
@@ -125,7 +187,7 @@ class Balloon {
 
   update(dt) {
     // update balloon
-    this.temperature=120
+    this.temperature+=0.1
     this.netForceT=new Vector3(0,0,0);
     console.log('temp',this.temperature)
      this.netForceT = this.netForce();
