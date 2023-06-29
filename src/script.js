@@ -132,6 +132,7 @@ const balloonPhysics = new Balloon(new THREE.Vector3(0, -500, 0));
 gui.add(balloonPhysics,'basketMass',50,1000,5)
 gui.add(balloonPhysics,'balloonV',2000,20000,5)
 gui.add(balloonPhysics,'temperature',0,200,1)
+gui.add(balloonPhysics,'dt',0.001,0.01)
 
 
 // Load the model
@@ -146,7 +147,7 @@ loader.load(
     const model = obj;
     model.rotation.x = - Math.PI / 2;
     model.position.y=-500
-    model.scale.set(0.01,0.01,0.01) 
+    model.scale.set(balloonPhysics.balloonV/400000,balloonPhysics.balloonV/400000,balloonPhysics.balloonV/400000) 
 
     // set the movement speed of the cube
 const moveSpeed = 2;
@@ -236,7 +237,7 @@ if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Burner0
 
 
 
-gui.add(balloonPhysics,'dt',0.001,0.1,0.0001)
+
 
 function animate() {
   requestAnimationFrame(animate);
@@ -252,7 +253,7 @@ function animate() {
   model.position.copy(balloonPhysics.getPosition());
   renderer.render(scene, camera);
   controls.target.set(model.position.x,model.position.y,model.position.z)
-  
+  model.scale.set(balloonPhysics.balloonV/400000,balloonPhysics.balloonV/400000,balloonPhysics.balloonV/400000)
 
   controls.update
 }
@@ -278,19 +279,6 @@ animate();
     console.error(`Error loading model: ${error}`);
   }
 );
-
-
-
-document.addEventListener('keydown', function(event) {
-    console.log('Key pressed: ' + event.key);
-  });
-  
-  // add an event listener for the keyup event
-  document.addEventListener('keyup', function(event) {
-    console.log('Key released: ' + event.key);
-  });
-
-  
 
 
 /**
