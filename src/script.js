@@ -121,7 +121,7 @@ const loader = new OBJLoader();
 const balloonPhysics = new Balloon(new THREE.Vector3(0, -500, 0));
 
 gui.add(balloonPhysics,'basketMass',50,1000,5)
-gui.add(balloonPhysics,'balloonV',2000,20000,5)
+gui.add(balloonPhysics,'balloonV',2000,10000,5)
 gui.add(balloonPhysics,'temperature',0,200,1)
 gui.add(balloonPhysics,'dt',0.001,0.01)
 
