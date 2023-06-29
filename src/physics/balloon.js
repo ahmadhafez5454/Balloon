@@ -1,7 +1,7 @@
 import { Vector3 } from "three";
 
 class Balloon {
-  constructor(position, basketMass = 2, ballooMass = 1, balloonV = 10,temperature=25) {
+  constructor(position, basketMass = 150, ballooMass = 90, balloonV = 4000,temperature=80) {
     this.position = new Vector3(position.x, position.y, position.z);
     this.ballooMass = ballooMass;
     this.basketMass = basketMass; // kg
@@ -24,6 +24,8 @@ class Balloon {
     this.rhoB = 1.225;
     this.temperature=temperature;
     this.p=101323;
+    this.vx=0;
+    this.vz=0;
   }
 
   setPosition(position) {
@@ -42,7 +44,7 @@ class Balloon {
     let Rspecific = 287.058; //specific gas constant for dry air
     let Tkelvin = this.temperature + 273.15;
     let P = this.p;
-    let rho = P / (Rspecific * Tkelvin); // Path: ./formulas/rho.png
+    let rho = P / (Rspecific * Tkelvin); 
     console.log('rho',rho)
     this.rhoB=rho;
     //return rho;
@@ -70,7 +72,7 @@ class Balloon {
 
   }
   airResistence() {
-    const v = this.velocity.length();
+    const v = this.velocity.y;
     this.air = new Vector3(
       0,
       (-1 / 2) * this.rhoA * this.k * this.balloonSizeVertical * v * v,
@@ -79,6 +81,15 @@ class Balloon {
     return this.air;
   }
   windForceX(v) {
+    this.vx=v;
+    if(v<0){
+      this.windX = new Vector3(
+        (-1 / 2) * this.rhoA * this.k * this.balloonSizeHorizontal * v * v,
+          0,
+          0
+        );
+        return this.windX;
+    }
     this.windX = new Vector3(
     (1 / 2) * this.rhoA * this.k * this.balloonSizeHorizontal * v * v,
       0,
@@ -88,24 +99,77 @@ class Balloon {
   }
  
   windForceZ(v) {
+    this.vz=v;
+    if(v<0){
+      this.windZ = new Vector3(
+        0,
+        0,
+          (-1 / 2) * this.rhoA * this.k * this.balloonSizeHorizontal * v * v
+        );
+        return this.windZ;
+    }
     this.windZ = new Vector3(
-    0,
       0,
-      (1 / 2) * this.rhoA * this.k * this.balloonSizeHorizontal * v * v
+      0,
+        (1 / 2) * this.rhoA * this.k * this.balloonSizeHorizontal * v * v
+      );
+      return this.windZ;
+
+  }
+
+  airResistenceZ() {
+    const v = this.velocity.z;
+    if(this.vz<0){
+      this.air = new Vector3(
+      0,
+      0,
+      (1 / 2) * this.rhoA * this.k * this.balloonSizeVertical * v * v
     );
-    return this.windZ;
+    return this.air;}
+
+    this.air = new Vector3(
+      0,
+      0,
+      (-1 / 2) * this.rhoA * this.k * this.balloonSizeVertical * v * v
+    );
+    return this.air;
+
+  }
+
+  airResistenceX() {
+    const v = this.velocity.x;
+    if(this.vx<0){
+      this.air = new Vector3(
+        (1 / 2) * this.rhoA * this.k * this.balloonSizeVertical * v * v,
+        0,
+        0
+      );
+      return this.air;
+    }
+    this.air = new Vector3(
+      (-1 / 2) * this.rhoA * this.k * this.balloonSizeVertical * v * v,
+      0,
+      0
+    );
+    return this.air;
+
   }
 
 
+ 
 
+   
   netForce() {
     const weight = this.weightForce();
     const lift = this.liftForce();
     const air = this.airResistence();
     this.netForceT = this.netForceT.add(lift)
     this.netForceT = this.netForceT.add(weight)
-    //this.netForceT = this.netForceT.add(air)
-    //this.netForceT = this.netForceT.add(this.windForceX(25))
+    this.netForceT = this.netForceT.add(air)
+    // this.netForceT = this.netForceT.add(this.windForceX(-80))
+    // this.netForceT = this.netForceT.add(this.airResistenceX())
+    // this.netForceT = this.netForceT.add(this.windForceZ(-60))
+    // this.netForceT = this.netForceT.add(this.airResistenceZ())
     return this.netForceT;
   }
 
@@ -123,13 +187,18 @@ class Balloon {
 
   update(dt) {
     // update balloon
+<<<<<<< HEAD
     this.temperature+=0.3
+=======
+    //this.temperature=80
+    this.netForceT=new Vector3(0,0,0);
+>>>>>>> e74f08ff795eba3d8bcf71741229657c543a4e9f
     console.log('temp',this.temperature)
      this.netForceT = this.netForce();
-    if (this.netForceT.y > 0) {
+    //if (this.netForceT.y > 0) {
       this.updateVelocity(dt);
       this.updatePosition(dt);
-    }
+    //}
   }
 
   
