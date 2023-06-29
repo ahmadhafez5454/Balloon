@@ -173,6 +173,16 @@ document.addEventListener('keydown', function(event) {
       controls.target.set(model.position.x,model.position.y,model.position.z)
      
       break;
+
+      case 't': // down arrow
+      balloonPhysics.temperature+=1;
+     
+      break;
+
+      case 'r': // down arrow
+      balloonPhysics.temperature-=1;
+     
+      break;
   }
 });
 

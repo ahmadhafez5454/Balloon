@@ -1,7 +1,7 @@
 import { Vector3 } from "three";
 
 class Balloon {
-  constructor(position, basketMass = 150, ballooMass = 90, balloonV = 4000,temperature=25) {
+  constructor(position, basketMass = 150, ballooMass = 90, balloonV = 4000,temperature=80) {
     this.position = new Vector3(position.x, position.y, position.z);
     this.ballooMass = ballooMass;
     this.basketMass = basketMass; // kg
@@ -166,10 +166,10 @@ class Balloon {
     this.netForceT = this.netForceT.add(lift)
     this.netForceT = this.netForceT.add(weight)
     this.netForceT = this.netForceT.add(air)
-    this.netForceT = this.netForceT.add(this.windForceX(-80))
-    this.netForceT = this.netForceT.add(this.airResistenceX())
-    this.netForceT = this.netForceT.add(this.windForceZ(-60))
-    this.netForceT = this.netForceT.add(this.airResistenceZ())
+    // this.netForceT = this.netForceT.add(this.windForceX(-80))
+    // this.netForceT = this.netForceT.add(this.airResistenceX())
+    // this.netForceT = this.netForceT.add(this.windForceZ(-60))
+    // this.netForceT = this.netForceT.add(this.airResistenceZ())
     return this.netForceT;
   }
 
@@ -187,14 +187,14 @@ class Balloon {
 
   update(dt) {
     // update balloon
-    this.temperature+=0.1
+    //this.temperature=80
     this.netForceT=new Vector3(0,0,0);
     console.log('temp',this.temperature)
      this.netForceT = this.netForce();
-    if (this.netForceT.y > 0) {
+    //if (this.netForceT.y > 0) {
       this.updateVelocity(dt);
       this.updatePosition(dt);
-    }
+    //}
   }
 
   
