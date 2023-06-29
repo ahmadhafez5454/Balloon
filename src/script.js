@@ -183,6 +183,16 @@ document.addEventListener('keydown', function(event) {
       balloonPhysics.temperature-=1;
      
       break;
+
+      case 'x': // down arrow
+      balloonPhysics.vx+=1;
+     
+      break;
+
+      case 'z': // down arrow
+      balloonPhysics.vz+=1;
+     
+      break;
   }
 });
 
@@ -255,7 +265,11 @@ function animate() {
   // Update the balloon physics and position
   balloonPhysics.update(0.001);
   console.log('Net Force =',balloonPhysics.netForceT);
-  console.log('air',balloonPhysics.airResistence());
+ // console.log('air',balloonPhysics.airResistence());
+ // console.log('rho',balloonPhysics.rhoB)
+ // console.log('weight',balloonPhysics.weight)
+ // console.log('lift = ',balloonPhysics.lift)
+  //console.log('temp',balloonPhysics.temperature)
   model.position.copy(balloonPhysics.getPosition());
   renderer.render(scene, camera);
 }
