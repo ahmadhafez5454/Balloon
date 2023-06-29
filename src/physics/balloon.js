@@ -123,7 +123,7 @@ class Balloon {
 
   update(dt) {
     // update balloon
-    this.temperature+=0.1
+    this.temperature+=0.3
     console.log('temp',this.temperature)
      this.netForceT = this.netForce();
     if (this.netForceT.y > 0) {
