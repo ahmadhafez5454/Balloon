@@ -6,6 +6,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import Balloon from './physics/balloon';
 import * as dat from 'dat.gui'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 /*
 *debug ui
@@ -81,44 +82,34 @@ const floorTexture = textureLoader.load('balloon_model/11809_Hot_air_balloon_Flo
 const basketSupportSpecTexture = textureLoader.load('balloon_model/11809_Hot_air_balloon_Basket_support_spec.jpg');
 const reflTexture = textureLoader.load('balloon_model/11809_Hot_air_balloon_refl.jpg');
 
-
  // Create a materials for the balloon with its textures
  const balloonMaterial = new THREE.MeshBasicMaterial({
   map: balloonTexture,
 });
-
 const basketMaterial = new THREE.MeshBasicMaterial({
   map: basketTexture,
 });
-
 const burnerMaterial = new THREE.MeshBasicMaterial({
   map: burnerTexture,
 });
-
 const balloonTopMaterial = new THREE.MeshBasicMaterial({
   map: balloonTopTexture,
 });
-
 const basketSpecMaterial = new THREE.MeshBasicMaterial({
   map: basketSpecTexture,
 });
-
 const basketSupportMaterial = new THREE.MeshBasicMaterial({
   map: basketSupportTexture,
 });
-
 const burnerSpecMaterial = new THREE.MeshBasicMaterial({
   map: burnerSpecTexture,
 });
-
 const floorMaterial = new THREE.MeshBasicMaterial({
   map: floorTexture,
 });
-
 const basketSupportSpecMaterial = new THREE.MeshBasicMaterial({
   map: basketSupportSpecTexture,
 });
-
 const reflMaterial = new THREE.MeshBasicMaterial({
   map: reflTexture,
 });
@@ -176,56 +167,43 @@ document.addEventListener('keydown', function(event) {
   model.traverse((child) => {
   if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Balloon') {
     child.material = balloonMaterial;
-  }
-});
+  }});
 model.traverse((child) => {
 if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Basket') {
   child.material = basketMaterial;
-}
-});
+}});
 model.traverse((child) => {
 if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Support_Base') {
   child.material = basketSupportMaterial;
-}
-});
+}});
 model.traverse((child) => {
 if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Floor') {
   child.material = floorMaterial;
-}
-});
+}});
 model.traverse((child) => {
 if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Fasteners') {
   child.material = burnerMaterial;
-}
-});
+}});
 model.traverse((child) => {
 if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Burner') {
   child.material = burnerMaterial;
-}
-});
+}});
 model.traverse((child) => {
 if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Burners_det') {
   child.material = burnerSpecMaterial;
-}
-});
+}});
 model.traverse((child) => {
 if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Top') {
   child.material = balloonTopMaterial;
-}
-});
+}});
 model.traverse((child) => {
 if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Burners_det_L') {
   child.material = burnerSpecMaterial;
-}
-});
+}});
 model.traverse((child) => {
 if (child instanceof THREE.Mesh && child.name === '11809_Hot_air_balloon_Burner001') {
   child.material = burnerSpecMaterial;
-}
-});
-
-
-
+}});
 
 
 
@@ -240,15 +218,10 @@ function animate() {
   renderer.render(scene, camera);
   controls.target.set(model.position.x,model.position.y,model.position.z)
   model.scale.set(balloonPhysics.balloonV/400000,balloonPhysics.balloonV/400000,balloonPhysics.balloonV/400000)
-
   controls.update
 }
 
 animate();
-
-
-
-    
 
     // Add the model to the scene
     scene.add(model);
@@ -258,13 +231,27 @@ animate();
   (xhr) => {
     console.log(`${(xhr.loaded / xhr.total * 100)}% loaded`);
   },
-  
-
   // The onError function, which is called if there is an error loading the model
   (error) => {
     console.error(`Error loading model: ${error}`);
   }
 );
+
+
+
+const gLTFLoader = new GLTFLoader()
+gLTFLoader.load('tree_model/scene.gltf',(obj)=>{
+  const model = obj;
+  // model.rotation.x = - Math.PI / 2;
+  model.scene.position.y=-500
+  model.scene.position.x=50
+  model.scene.scale.set(20,20,20) 
+  scene.add(model.scene)
+
+
+
+
+})
 
 
 /**
@@ -304,7 +291,6 @@ window.addEventListener('dblclick',()=>{
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 10000)
 camera.position.z = 60
 camera.position.y= - 460
-
 
 scene.add(camera)
 

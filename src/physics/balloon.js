@@ -27,7 +27,7 @@ class Balloon {
     this.p=101323;
     this.vx=0;
     this.vz=0;
-    this.dt=0.01;
+    this.dt=0.001;
   }
 
   setPosition(position) {
