@@ -37,7 +37,10 @@ class Balloon {
 
   getPosition() {
     // Get the position of the balloon
-    return this.position;
+    if(this.position.y>=-500)
+      return this.position;
+      else return new Vector3(this.position.x,-500,this.position.z)
+      
   }
 
 
@@ -74,8 +77,8 @@ class Balloon {
   }
   airResistence() {
     const v = this.velocity.y;
-    if(this.lift.y>this.weight.y){
-      console.log('lift bigger than weight')
+    if(this.velocity.y>0){
+      console.log('its going up')
       this.air = new Vector3(
         0,
         (-1 / 2) * this.rhoA * this.k * this.balloonSizeVertical * v * v,
@@ -83,8 +86,8 @@ class Balloon {
       );
       return this.air;
     }
-    if(this.lift.y<this.weight.y){
-      console.log('weight bigger than lift')
+    if(this.velocity.y<0){
+      console.log('its going down')
       this.air = new Vector3(
         0,
         (1 / 2) * this.rhoA * this.k * this.balloonSizeVertical * v * v,
@@ -134,11 +137,11 @@ class Balloon {
 
   airResistenceZ() {
     const v = this.velocity.z;
-    if(this.vz<0){
+    if(this.velocity.z<0){
       this.air = new Vector3(
       0,
       0,
-      (1 / 2) * this.rhoA * this.k * this.balloonSizeVertical * v * v
+      (1 / 2) * this.rhoA * this.k * this.balloonSizeHorizontal * v * v
     );
     return this.air;}
 
@@ -153,16 +156,16 @@ class Balloon {
 
   airResistenceX() {
     const v = this.velocity.x;
-    if(this.vx<0){
+    if(this.velocity.x<0){
       this.air = new Vector3(
-        (1 / 2) * this.rhoA * this.k * this.balloonSizeVertical * v * v,
+        (1 / 2) * this.rhoA * this.k * this.balloonSizeHorizontal * v * v,
         0,
         0
       );
       return this.air;
     }
     this.air = new Vector3(
-      (-1 / 2) * this.rhoA * this.k * this.balloonSizeVertical * v * v,
+      (-1 / 2) * this.rhoA * this.k * this.balloonSizeHorizontal * v * v,
       0,
       0
     );
