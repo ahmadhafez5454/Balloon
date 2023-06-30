@@ -121,7 +121,7 @@ const loader = new OBJLoader();
 const balloonPhysics = new Balloon(new THREE.Vector3(0, -500, 0));
 
 gui.add(balloonPhysics,'basketMass',50,2000,5)
-gui.add(balloonPhysics,'balloonV',2000,5000,5)
+gui.add(balloonPhysics,'balloonV',2000,8000,5)
 gui.add(balloonPhysics,'temperature',0,200,1)
 gui.add(balloonPhysics,'dt',0.001,0.01)
 
@@ -326,7 +326,8 @@ const controls = new OrbitControls(camera, canvas)
 controls.maxPolarAngle=Math.PI /1.5
 controls.target.set(0,-500,0)
 controls.enableDamping = true
-controls.maxDistance=100
+controls.maxDistance=1300
+controls.screenSpacePanning.Balloon
 
 
 

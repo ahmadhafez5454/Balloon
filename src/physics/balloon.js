@@ -37,9 +37,13 @@ class Balloon {
 
   getPosition() {
     // Get the position of the balloon
-    if(this.position.y>=-500)
-      return this.position;
-      else return new Vector3(this.position.x,-500,this.position.z)
+    if(this.position.y>=-500){
+      return this.position
+    }
+      
+      else 
+      {
+        return new Vector3(this.position.x,-500,this.position.z)}
       
   }
 
