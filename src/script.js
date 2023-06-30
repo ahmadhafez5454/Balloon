@@ -124,12 +124,9 @@ gui.add(balloonPhysics,'basketMass',50,2000,5)
 gui.add(balloonPhysics,'balloonV',2000,8000,5)
 gui.add(balloonPhysics,'temperature',0,200,1)
 gui.add(balloonPhysics,'dt',0.001,0.01)
-<<<<<<< HEAD
- 
-=======
 gui.add(balloonPhysics,'vx',-100,100,1)
 gui.add(balloonPhysics,'vz',-100,100,1)
->>>>>>> 238b40c3b9f39778665a85aacd77c3447fa5d5fa
+
 
 
 // Load the model
