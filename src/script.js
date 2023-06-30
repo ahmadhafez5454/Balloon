@@ -124,6 +124,8 @@ gui.add(balloonPhysics,'basketMass',50,2000,5)
 gui.add(balloonPhysics,'balloonV',2000,10000,5)
 gui.add(balloonPhysics,'temperature',0,200,1)
 gui.add(balloonPhysics,'dt',0.001,0.01)
+gui.add(balloonPhysics,'vx',-100,100,1)
+gui.add(balloonPhysics,'vz',-100,100,1)
 
 
 // Load the model
@@ -222,12 +224,13 @@ function animate() {
 
   // Update the balloon physics and position
   balloonPhysics.update(balloonPhysics.dt);
-  console.log('Net Force =',balloonPhysics.netForceT);
-  console.log('air',balloonPhysics.airResistence());
+  //console.log('Net Force =',balloonPhysics.netForceT);
+  //console.log('air',balloonPhysics.airResistence().y);
  // console.log('rho',balloonPhysics.rhoB)
-  console.log('weight',balloonPhysics.weight)
-  console.log('lift = ',balloonPhysics.lift)
+  //console.log('weight',balloonPhysics.weight.y)
+  //console.log('lift = ',balloonPhysics.lift.y)
   //console.log('temp',balloonPhysics.temperature)
+  console.log('velocity',balloonPhysics.velocity)
   model.position.copy(balloonPhysics.getPosition());
   renderer.render(scene, camera);
   controls.target.set(model.position.x,model.position.y,model.position.z)
