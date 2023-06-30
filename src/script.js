@@ -223,10 +223,10 @@ function animate() {
   // Update the balloon physics and position
   balloonPhysics.update(balloonPhysics.dt);
   console.log('Net Force =',balloonPhysics.netForceT);
- // console.log('air',balloonPhysics.airResistence());
+  console.log('air',balloonPhysics.airResistence());
  // console.log('rho',balloonPhysics.rhoB)
- // console.log('weight',balloonPhysics.weight)
- // console.log('lift = ',balloonPhysics.lift)
+  console.log('weight',balloonPhysics.weight)
+  console.log('lift = ',balloonPhysics.lift)
   //console.log('temp',balloonPhysics.temperature)
   
     model.position.copy(balloonPhysics.getPosition());
