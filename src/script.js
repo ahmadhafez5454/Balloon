@@ -39,12 +39,12 @@ scene.add(ambientLight, pointLight);
 
 //Create ground
 const textureLoader = new THREE.TextureLoader();
-const grassTexture = textureLoader.load('grass.jpg') 
+const grassTexture = textureLoader.load('t2.jpg') 
 grassTexture.wrapS = THREE.RepeatWrapping;                               
 grassTexture.wrapT = THREE.RepeatWrapping; 
 grassTexture.repeat.set(5, 5); 
 
-const groundGeometry = new THREE.CircleGeometry( 865, 32 ); 
+const groundGeometry = new THREE.CircleGeometry( 1415, 32 ); 
 const groundMaterial = new THREE.MeshBasicMaterial( { map: grassTexture,side: THREE.DoubleSide } ); 
 const circle = new THREE.Mesh( groundGeometry, groundMaterial );
 circle.rotation.x = - Math.PI / 2;
@@ -56,8 +56,8 @@ circle.position.y=-500
 
 
 // Create a sky sphere
-const skyTexture = new THREE.TextureLoader().load('sky.jpg') 
-const skyGeometry = new THREE.SphereGeometry(1000, 60, 40);
+const skyTexture = new THREE.TextureLoader().load('s.jpg') 
+const skyGeometry = new THREE.SphereGeometry(1500, 60, 40);
 const skyMaterial = new THREE.MeshBasicMaterial({ map: skyTexture, side: THREE.BackSide });
 const skySphere = new THREE.Mesh(skyGeometry, skyMaterial);
 skySphere.material.map.wrapS = THREE.RepeatWrapping;
@@ -120,7 +120,7 @@ const loader = new OBJLoader();
 // Create a new instance of the Balloon class
 const balloonPhysics = new Balloon(new THREE.Vector3(0, -500, 0));
 
-gui.add(balloonPhysics,'basketMass',50,1000,5)
+gui.add(balloonPhysics,'basketMass',50,2000,5)
 gui.add(balloonPhysics,'balloonV',2000,10000,5)
 gui.add(balloonPhysics,'temperature',0,200,1)
 gui.add(balloonPhysics,'dt',0.001,0.01)
@@ -259,13 +259,20 @@ gLTFLoader.load('tree_model/scene.gltf',(obj)=>{
   // model.rotation.x = - Math.PI / 2;
   model.scene.position.y=-500
   model.scene.position.x=50
-  model.scene.scale.set(20,20,20) 
+  model.scene.scale.set(30,30,30) 
   scene.add(model.scene)
-
-
-
-
 })
+
+gLTFLoader.load('windmill_model/scene.gltf',(obj)=>{
+  const model = obj;
+  //  model.scene.rotation.y = - Math.PI / 2;
+
+  model.scene.position.set(90,-500,-200)
+  model.scene.scale.set(70,70,70) 
+  scene.add(model.scene)
+  
+})
+
 
 
 /**
