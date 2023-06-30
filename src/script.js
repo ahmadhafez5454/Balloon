@@ -231,7 +231,7 @@ function animate() {
   model.position.copy(balloonPhysics.getPosition());
   renderer.render(scene, camera);
   controls.target.set(model.position.x,model.position.y,model.position.z)
-  model.scale.set(balloonPhysics.balloonV/400000,balloonPhysics.balloonV/400000,balloonPhysics.balloonV/400000)
+  model.scale.set(balloonPhysics.balloonV/500000,balloonPhysics.balloonV/500000,balloonPhysics.balloonV/500000)
   controls.update
 }
 
@@ -259,16 +259,16 @@ gLTFLoader.load('tree_model/scene.gltf',(obj)=>{
   // model.rotation.x = - Math.PI / 2;
   model.scene.position.y=-500
   model.scene.position.x=50
-  model.scene.scale.set(30,30,30) 
+  model.scene.scale.set(35,35,35) 
   scene.add(model.scene)
 })
 
 gLTFLoader.load('windmill_model/scene.gltf',(obj)=>{
   const model = obj;
-  //  model.scene.rotation.y = - Math.PI / 2;
+    model.scene.rotation.y =  Math.PI / 3;
 
-  model.scene.position.set(90,-500,-200)
-  model.scene.scale.set(70,70,70) 
+  model.scene.position.set(180,-500,-400)
+  model.scene.scale.set(80,80,80) 
   scene.add(model.scene)
   
 })
@@ -320,6 +320,8 @@ const controls = new OrbitControls(camera, canvas)
 controls.maxPolarAngle=Math.PI /1.5
 controls.target.set(0,-500,0)
 controls.enableDamping = true
+controls.maxDistance=1300
+
 
 
 /**
