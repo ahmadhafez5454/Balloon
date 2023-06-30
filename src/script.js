@@ -124,6 +124,7 @@ gui.add(balloonPhysics,'basketMass',50,2000,5)
 gui.add(balloonPhysics,'balloonV',2000,8000,5)
 gui.add(balloonPhysics,'temperature',0,200,1)
 gui.add(balloonPhysics,'dt',0.001,0.01)
+ 
 
 
 // Load the model
@@ -260,6 +261,7 @@ animate();
 
 
 const gLTFLoader = new GLTFLoader()
+
 gLTFLoader.load('tree_model/scene.gltf',(obj)=>{
   const model = obj;
   // model.rotation.x = - Math.PI / 2;
@@ -276,7 +278,6 @@ gLTFLoader.load('windmill_model/scene.gltf',(obj)=>{
   model.scene.position.set(180,-500,-400)
   model.scene.scale.set(80,80,80) 
   scene.add(model.scene)
-  
 })
 
 
