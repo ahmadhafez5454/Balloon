@@ -74,7 +74,8 @@ class Balloon {
   }
   airResistence() {
     const v = this.velocity.y;
-    if(this.lift>this.weight){
+    if(this.lift.y>this.weight.y){
+      console.log('lift bigger than weight')
       this.air = new Vector3(
         0,
         (-1 / 2) * this.rhoA * this.k * this.balloonSizeVertical * v * v,
@@ -82,7 +83,8 @@ class Balloon {
       );
       return this.air;
     }
-    if(this.lift<this.weight){
+    if(this.lift.y<this.weight.y){
+      console.log('weight bigger than lift')
       this.air = new Vector3(
         0,
         (1 / 2) * this.rhoA * this.k * this.balloonSizeVertical * v * v,
