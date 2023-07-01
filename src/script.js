@@ -121,11 +121,12 @@ const loader = new OBJLoader();
 const balloonPhysics = new Balloon(new THREE.Vector3(0, -500, 0));
 
 gui.add(balloonPhysics,'basketMass',50,2000,5)
-gui.add(balloonPhysics,'balloonV',2000,5000,5)
+gui.add(balloonPhysics,'balloonV',2000,8000,5)
 gui.add(balloonPhysics,'temperature',0,200,1)
 gui.add(balloonPhysics,'dt',0.001,0.01)
 gui.add(balloonPhysics,'vx',-100,100,1)
 gui.add(balloonPhysics,'vz',-100,100,1)
+
 
 
 // Load the model
@@ -264,6 +265,7 @@ animate();
 
 
 const gLTFLoader = new GLTFLoader()
+
 gLTFLoader.load('tree_model/scene.gltf',(obj)=>{
   const model = obj;
   // model.rotation.x = - Math.PI / 2;
@@ -280,7 +282,6 @@ gLTFLoader.load('windmill_model/scene.gltf',(obj)=>{
   model.scene.position.set(180,-500,-400)
   model.scene.scale.set(80,80,80) 
   scene.add(model.scene)
-  
 })
 
 
@@ -330,7 +331,8 @@ const controls = new OrbitControls(camera, canvas)
 controls.maxPolarAngle=Math.PI /1.5
 controls.target.set(0,-500,0)
 controls.enableDamping = true
-controls.maxDistance=100
+controls.maxDistance=1300
+controls.screenSpacePanning.Balloon
 
 
 
