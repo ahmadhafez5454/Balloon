@@ -228,7 +228,7 @@ function animate() {
   //console.log('air',balloonPhysics.airResistence().y);
  // console.log('rho',balloonPhysics.rhoB)
   //console.log('weight',balloonPhysics.weight.y)
-  //console.log('lift = ',balloonPhysics.lift.y)
+  console.log('lift = ',balloonPhysics.lift.y)
   //console.log('temp',balloonPhysics.temperature)
   console.log('velocity',balloonPhysics.velocity)
   model.position.copy(balloonPhysics.getPosition());
