@@ -2,7 +2,7 @@ import { Vector3 } from "three";
 
 
 class Balloon {
-  constructor(position, basketMass = 150, ballooMass = 90, balloonV = 4000,temperature=40) {
+  constructor(position, basketMass = 150, ballooMass = 90, balloonV = 4000,temperature=29) {
     this.position = new Vector3(position.x, position.y, position.z);
     this.ballooMass = ballooMass;
     this.basketMass = basketMass; // kg
@@ -39,8 +39,13 @@ class Balloon {
     // Get the position of the balloon
     if(this.position.y>=-500)
       return this.position;
-      else return new Vector3(this.position.x,-500,this.position.z)
-      
+      else
+      {
+      this.setPosition( new Vector3(this.position.x,-500,this.position.z))
+      this.velocity=new Vector3(0,0,0)
+      this.netForceT=new Vector3(0,0,0)
+      return this.position
+      }
   }
 
 
