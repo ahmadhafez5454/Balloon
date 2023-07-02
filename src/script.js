@@ -124,7 +124,7 @@ const balloonPhysics = new Balloon(new THREE.Vector3(0, -500, 0));
 gui.add(balloonPhysics,'basketMass',50,2000,5)
 gui.add(balloonPhysics,'balloonV',2000,8000,5)
 gui.add(balloonPhysics,'temperature',0,200,1)
-gui.add(balloonPhysics,'dt',0.001,0.01)
+gui.add(balloonPhysics,'dt',0.001,0.11)
 gui.add(balloonPhysics,'vx',-100,100,1)
 gui.add(balloonPhysics,'vz',-100,100,1)
 

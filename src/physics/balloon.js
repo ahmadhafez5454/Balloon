@@ -38,7 +38,7 @@ class Balloon {
 
   getPosition() {
     // Get the position of the balloon
-    if(this.position.y>=-500 && this.position.y<=1700)
+    if(this.position.y>=-500 && this.position.y<=1600)
       return this.position;
 
       else if(this.position.y< -500)
@@ -46,12 +46,14 @@ class Balloon {
           this.setPosition( new Vector3(this.position.x,-500,this.position.z))
           this.velocity=new Vector3(0,0,0)
           this.netForceT=new Vector3(0,0,0)
+          console.log('on ground')
           return this.position
       }
-      else  if(this.position.y > 100){
-        this.setPosition( new Vector3(this.position.x,100,this.position.z))
+      else  if(this.position.y > 1600){
+        this.setPosition( new Vector3(this.position.x,1600,this.position.z))
         this.velocity=new Vector3(0,0,0)
         this.netForceT=new Vector3(0,0,0)
+        console.log('max altitude')
         return this.position
       }
       
