@@ -18,6 +18,7 @@ const gui=new dat.GUI()
 
 
 
+
 //alra3i first code
 /**
  * Base
@@ -265,7 +266,6 @@ animate();
 
 
 const gLTFLoader = new GLTFLoader()
-
 gLTFLoader.load('tree_model/scene.gltf',(obj)=>{
   const model = obj;
   // model.rotation.x = - Math.PI / 2;
@@ -274,8 +274,8 @@ gLTFLoader.load('tree_model/scene.gltf',(obj)=>{
   model.scene.scale.set(35,35,35) 
   scene.add(model.scene)
 })
-
-gLTFLoader.load('windmill_model/scene.gltf',(obj)=>{
+const gLTFLoader1 = new GLTFLoader()
+gLTFLoader1.load('windmill_model/scene.gltf',(obj)=>{
   const model = obj;
     model.scene.rotation.y =  Math.PI / 3;
 

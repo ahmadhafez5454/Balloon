@@ -43,7 +43,11 @@ class Balloon {
       
       else 
       {
-        return new Vector3(this.position.x,-500,this.position.z)}
+        this.setPosition(new Vector3(this.position.x,-500,this.position.z))
+        this.velocity=new Vector3(0, 0, 0)
+        this.netForceT=new Vector3(0, 0, 0)
+        
+        return this.position}
       
   }
 
