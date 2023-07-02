@@ -38,18 +38,24 @@ class Balloon {
 
   getPosition() {
     // Get the position of the balloon
-    if(this.position.y>=-500)
+    if(this.position.y>=-500 && this.position.y<=1700)
       return this.position;
 
-      else
+      else if(this.position.y< -500)
       {
-
           this.setPosition( new Vector3(this.position.x,-500,this.position.z))
           this.velocity=new Vector3(0,0,0)
           this.netForceT=new Vector3(0,0,0)
           return this.position
-        
       }
+      else  if(this.position.y > 100){
+        this.setPosition( new Vector3(this.position.x,100,this.position.z))
+        this.velocity=new Vector3(0,0,0)
+        this.netForceT=new Vector3(0,0,0)
+        return this.position
+      }
+      
+
   }
 
 //   atm_pressureOutside() {
