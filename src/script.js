@@ -26,6 +26,7 @@ const gui=new dat.GUI()
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
+
 // Scene
 const scene = new THREE.Scene()
 
@@ -234,7 +235,9 @@ function animate() {
   //console.log('temp',balloonPhysics.temperature)
  // console.log('velocity',balloonPhysics.velocity)
   //console.log('rhoA',balloonPhysics.rhoA);
-  model.position.copy(balloonPhysics.getPosition());
+  model.position.copy(balloonPhysics.getPositionY());
+  model.position.copy(balloonPhysics.getPositionX());
+  model.position.copy(balloonPhysics.getPositionZ());
   
   
   

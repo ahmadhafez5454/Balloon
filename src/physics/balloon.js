@@ -35,10 +35,9 @@ class Balloon {
     // Set the position of the balloon
     this.position.copy(position);
   }
-
-  getPosition() {
+  getPositionY() {
     // Get the position of the balloon
-    if(this.position.y>=-500 && this.position.y<=1600)
+    if(this.position.y>=-500 && this.position.y<=1300)
       return this.position;
 
       else if(this.position.y< -500)
@@ -49,8 +48,8 @@ class Balloon {
           console.log('on ground')
           return this.position
       }
-      else  if(this.position.y > 1600){
-        this.setPosition( new Vector3(this.position.x,1600,this.position.z))
+      else  if(this.position.y > 1300){
+        this.setPosition( new Vector3(this.position.x,1300,this.position.z))
         this.velocity=new Vector3(0,0,0)
         this.netForceT=new Vector3(0,0,0)
         console.log('max altitude')
@@ -59,7 +58,48 @@ class Balloon {
       
 
   }
+  getPositionX() {
+    // Get the position of the balloon
+    if(this.position.x>=-1300 && this.position.x<=1300)
+      return this.position;
 
+      else if(this.position.x< -1300)
+      {
+          this.setPosition( new Vector3(-1300,this.position.y,this.position.z))
+          this.velocity=new Vector3(0,0,0)
+          this.netForceT=new Vector3(0,0,0)
+          return this.position
+      }
+      else  if(this.position.x > 1300){
+        this.setPosition( new Vector3(1300,this.position.y,this.position.z))
+        this.velocity=new Vector3(0,0,0)
+        this.netForceT=new Vector3(0,0,0)
+        return this.position
+      }
+      
+
+  }
+  getPositionZ() {
+    // Get the position of the balloon
+    if(this.position.z>=-1300 && this.position.z<=1300)
+      return this.position;
+
+      else if(this.position.z< -1300)
+      {
+          this.setPosition( new Vector3(this.position.x,this.position.y,-1300))
+          this.velocity=new Vector3(0,0,0)
+          this.netForceT=new Vector3(0,0,0)
+          return this.position
+      }
+      else  if(this.position.z > 1300){
+        this.setPosition( new Vector3(this.position.x,this.position.y,1300))
+        this.velocity=new Vector3(0,0,0)
+        this.netForceT=new Vector3(0,0,0)
+        return this.position
+      }
+      
+
+  }
 //   atm_pressureOutside() {
 //     let R = 8.3145; // (J * K^−1 * mol^−1) general gases constants
 //     let Md = 0.028964; // (kg/mol) mass of one air molecule
