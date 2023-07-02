@@ -45,7 +45,7 @@ grassTexture.wrapS = THREE.RepeatWrapping;
 grassTexture.wrapT = THREE.RepeatWrapping; 
 grassTexture.repeat.set(5, 5); 
 
-const groundGeometry = new THREE.CircleGeometry( 1415, 32 ); 
+const groundGeometry = new THREE.CircleGeometry( 1925, 32 ); 
 const groundMaterial = new THREE.MeshBasicMaterial( { map: grassTexture,side: THREE.DoubleSide } ); 
 const circle = new THREE.Mesh( groundGeometry, groundMaterial );
 circle.rotation.x = - Math.PI / 2;
@@ -58,7 +58,7 @@ circle.position.y=-500
 
 // Create a sky sphere
 const skyTexture = new THREE.TextureLoader().load('s.jpg') 
-const skyGeometry = new THREE.SphereGeometry(1500, 60, 40);
+const skyGeometry = new THREE.SphereGeometry(2000, 60, 40);
 const skyMaterial = new THREE.MeshBasicMaterial({ map: skyTexture, side: THREE.BackSide });
 const skySphere = new THREE.Mesh(skyGeometry, skyMaterial);
 skySphere.material.map.wrapS = THREE.RepeatWrapping;
@@ -232,10 +232,10 @@ function animate() {
   //console.log('weight',balloonPhysics.weight.y)
   //console.log('lift = ',balloonPhysics.lift.y)
   //console.log('temp',balloonPhysics.temperature)
-  console.log('velocity',balloonPhysics.velocity)
+ // console.log('velocity',balloonPhysics.velocity)
+  //console.log('rhoA',balloonPhysics.rhoA);
   model.position.copy(balloonPhysics.getPosition());
   
-    model.position.copy(balloonPhysics.getPosition());
   
   
 

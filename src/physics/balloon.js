@@ -2,7 +2,7 @@ import { Vector3 } from "three";
 
 
 class Balloon {
-  constructor(position, basketMass = 150, ballooMass = 90, balloonV = 4000,temperature=40) {
+  constructor(position, basketMass = 150, ballooMass = 90, balloonV = 4000,temperature=29) {
     this.position = new Vector3(position.x, position.y, position.z);
     this.ballooMass = ballooMass;
     this.basketMass = basketMass; // kg
@@ -21,10 +21,11 @@ class Balloon {
     this.balloonSizeHorizontal =
       Math.PI * this.balloonRadius * this.balloonRadius + this.basketSize;
     this.k = 0.47;
-    this.rhoA = 1.225;
+    //this.outerTemp=50;
+    this.p=101323;
+    this.rhoA=1.225
     this.rhoB = 1.225;
     this.temperature=temperature;
-    this.p=101323;
     this.vx=0;
     this.vz=0;
     this.dt=0.001;
@@ -37,22 +38,40 @@ class Balloon {
 
   getPosition() {
     // Get the position of the balloon
-    if(this.position.y>=-500){
-      return this.position
-    }
-      
-      else 
+    if(this.position.y>=-500)
+      return this.position;
+
+      else
       {
-        this.setPosition(new Vector3(this.position.x,-500,this.position.z))
-        this.velocity=new Vector3(0, 0, 0)
-        this.netForceT=new Vector3(0, 0, 0)
+
+          this.setPosition( new Vector3(this.position.x,-500,this.position.z))
+          this.velocity=new Vector3(0,0,0)
+          this.netForceT=new Vector3(0,0,0)
+          return this.position
         
-        return this.position}
-      
+      }
   }
 
+//   atm_pressureOutside() {
+//     let R = 8.3145; // (J * K^−1 * mol^−1) general gases constants
+//     let Md = 0.028964; // (kg/mol) mass of one air molecule
+//     let P0 = 101325; // 1bar =100000pa
+//     let Tkelvin2 = this.outerTemp + 273.15;
+
+//     // Atmospheric pressure
+//     // p = p0 * exp(( -massOfOneAirMolecule * g * h ) / ( R * T ))
+//     let x = (-1 * Md * this.gravity * this.position.y) / (R * Tkelvin2);
+//     // //console.log('gravity',this.gravity)
+//     //console.log('height',this.position.y)
+//     // //console.log('R',R)
+//     // //console.log('Tkelvin',Tkelvin)
+//     // //console.log('x',x)
+//     return P0 * Math.exp(x); // Path : ./formulas/atm_pressure.png
+    
+// }
 
 
+ 
    air_rho() {
     let Rspecific = 287.058; //specific gas constant for dry air
     let Tkelvin = this.temperature + 273.15;
@@ -73,13 +92,13 @@ class Balloon {
   }
 
   liftForce() {
-    
+    this.air_rho();
     this.lift = new Vector3(
       0,
       (this.rhoA - this.rhoB) * this.balloonV * this.gravity,
       0
     );
-    this.air_rho();
+
     return this.lift;
 
   }
@@ -203,6 +222,7 @@ class Balloon {
     // update velocity based on net force and elapsed time
     this.netForceT = this.netForce();
     const acceleration = this.netForceT.divideScalar(this.ballooMass + this.basketMass);
+    //console.log('a = ',acceleration)
     this.velocity.add(acceleration.multiplyScalar(this.dt));
   }
 
@@ -215,7 +235,7 @@ class Balloon {
     // update balloon
     //this.temperature=80
     this.netForceT=new Vector3(0,0,0);
-     this.netForceT = this.netForce();
+    this.netForceT = this.netForce();
     //if (this.netForceT.y > 0) {
       this.updateVelocity(this.dt);
       this.updatePosition(this.dt);
