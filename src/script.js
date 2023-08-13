@@ -14,12 +14,6 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 const gui=new dat.GUI()
 
 
-
-
-
-
-
-//alra3i first code
 /**
  * Base
  */
@@ -145,38 +139,6 @@ loader.load(
     model.position.y=-500
     model.scale.set(balloonPhysics.balloonV/400000,balloonPhysics.balloonV/400000,balloonPhysics.balloonV/400000) 
 
-    // set the movement speed of the cube
-const moveSpeed = 2;
-
-// add an event listener for the keydown event
-document.addEventListener('keydown', function(event) {
-  switch (event.key) {
-      case 't': // down arrow
-      balloonPhysics.temperature+=1;
-     
-      break;
-
-      case 'r': // down arrow
-      balloonPhysics.temperature-=1;
-     
-      break;
-
-      case 'x': // down arrow
-      balloonPhysics.vx+=1;
-     
-      break;
-
-      case 'z': // down arrow
-      balloonPhysics.vz+=1;
-     
-      break;
-  }
-});
-
-   
-    
-
-      
 
   // Assign the materials to the appropriate parts of the model
   model.traverse((child) => {
@@ -229,10 +191,10 @@ function animate() {
   balloonPhysics.update(balloonPhysics.dt);
   //console.log('Net Force =',balloonPhysics.netForceT);
   //console.log('air',balloonPhysics.airResistence().y);
- // console.log('rho',balloonPhysics.rhoB)
+  // console.log('rho',balloonPhysics.rhoB)
   //console.log('weight',balloonPhysics.weight.y)
   //console.log('lift = ',balloonPhysics.lift.y)
-  //console.log('temp',balloonPhysics.temperature)
+ //console.log('temp',balloonPhysics.temperature)
  // console.log('velocity',balloonPhysics.velocity)
   //console.log('rhoA',balloonPhysics.rhoA);
   model.position.copy(balloonPhysics.getPositionY());

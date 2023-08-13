@@ -29,6 +29,8 @@ class Balloon {
     this.vx=0;
     this.vz=0;
     this.dt=0.001;
+    this.velocityElement = document.getElementById("velocity");
+    this.altitudeElement = document.getElementById("height");
   }
 
   setPosition(position) {
@@ -100,33 +102,13 @@ class Balloon {
       
 
   }
-//   atm_pressureOutside() {
-//     let R = 8.3145; // (J * K^−1 * mol^−1) general gases constants
-//     let Md = 0.028964; // (kg/mol) mass of one air molecule
-//     let P0 = 101325; // 1bar =100000pa
-//     let Tkelvin2 = this.outerTemp + 273.15;
 
-//     // Atmospheric pressure
-//     // p = p0 * exp(( -massOfOneAirMolecule * g * h ) / ( R * T ))
-//     let x = (-1 * Md * this.gravity * this.position.y) / (R * Tkelvin2);
-//     // //console.log('gravity',this.gravity)
-//     //console.log('height',this.position.y)
-//     // //console.log('R',R)
-//     // //console.log('Tkelvin',Tkelvin)
-//     // //console.log('x',x)
-//     return P0 * Math.exp(x); // Path : ./formulas/atm_pressure.png
-    
-// }
-
-
- 
    air_rho() {
-    let Rspecific = 287.058; //specific gas constant for dry air
+    let Rspecific = 287.058; 
     let Tkelvin = this.temperature + 273.15;
     let P = this.p;
     let rho = P / (Rspecific * Tkelvin); 
     this.rhoB=rho;
-    //return rho;
 }
 
   weightForce() {
@@ -272,11 +254,17 @@ class Balloon {
     const acceleration = this.netForceT.divideScalar(this.ballooMass + this.basketMass);
     //console.log('a = ',acceleration)
     this.velocity.add(acceleration.multiplyScalar(this.dt));
+    this.velocityElement.textContent = `Velocity: (${this.velocity.x.toFixed(2)}, ${this.velocity.y.toFixed(2)}, ${this.velocity.z.toFixed(2)})`;
   }
+
+
 
   updatePosition() {
     // update position based on velocity and elapsed time
     this.position=this.position.add(this.velocity.clone().multiplyScalar(this.dt));
+    this.altitudeElement.textContent = `Altitude: ${this.position.y.toFixed(2)}m`;
+
+    
   }
 
   update() {
@@ -287,6 +275,7 @@ class Balloon {
     //if (this.netForceT.y > 0) {
       this.updateVelocity(this.dt);
       this.updatePosition(this.dt);
+      
     //}
   }
 
