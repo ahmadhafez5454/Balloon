@@ -262,8 +262,7 @@ class Balloon {
   updatePosition() {
     // update position based on velocity and elapsed time
     this.position=this.position.add(this.velocity.clone().multiplyScalar(this.dt));
-    this.altitudeElement.textContent = `Altitude: ${this.position.y.toFixed(2)}m`;
-
+    this.altitudeElement.textContent = `Altitude: ${(this.position.y + 500).toFixed(2)}m`;
     
   }
 
